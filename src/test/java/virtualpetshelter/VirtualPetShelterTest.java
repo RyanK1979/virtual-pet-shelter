@@ -1,54 +1,81 @@
 package virtualpetshelter;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class VirtualPetShelterTest {
 
-	private static final String NAME = "Name";
-	private static final String DESCRIPTION = "Description";
-	private VirtualPetShelter underTest;
-
-	@Before
-	public void setup() {
-		underTest = new VirtualPetShelter();
-		underTest.admitNewDog(NAME, DESCRIPTION);
+	@Test
+	public void testIfDogWasAdded() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 23, 0, 0, 0));
+		int check = underTest.getSize();
+		assertEquals(1, check);
 	}
 
 	@Test
-	public void shouldTakeInNewPet() {
-		VirtualPet dog = underTest.getPet(NAME);
-		assertThat(dog.getName(), is(NAME));
+	public void testIfTwoGotAdded() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 23, 0, 0, 0));
+		underTest.admitNewDog(new VirtualPet("1", null, 43, 0, 0, 0));
+		int check = underTest.getSize();
+		assertEquals(2, check);
 	}
 
 	@Test
-	public void canAdoptAPetOut() {
-		underTest.adoptOutPet(NAME);
-		assertThat(underTest.checkIfPetIsThere(NAME), is(false));
+	public void testIfPetWasRescued() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 23, 0, 0, 0));
+		underTest.admitNewDog(new VirtualPet("1", null, 43, 0, 0, 0));
+		underTest.adoptOutDog("1");
+		int check = underTest.getSize();
+		assertEquals(1, check);
 	}
 
 	@Test
-	public void shouldFeedThePetAndResetBowlLvl() {
-		underTest.fillFoodBowls(1);
-		assertThat(underTest.getFoodLvl(), is(2));
+	public void testForFeedingWorkingOnOne() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 23, 0, 0, 0));
+		underTest.feedTheDogs();
+		VirtualPet check = underTest.getDog(null);
+		assertEquals(check.getHungerLvl(), 73);
 	}
 
 	@Test
-	public void shouldWaterThePetAndResetBowlLvl() {
-		underTest.fillWaterBowls(1);
-		assertThat(underTest.getWaterLvl(), is(2));
+	public void testForFeedingWithTwo() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 23, 0, 0, 0));
+		underTest.admitNewDog(new VirtualPet("1", null, 43, 0, 0, 0));
+		underTest.feedTheDogs();
+		VirtualPet check = underTest.getDog(null);
+		VirtualPet check2 = underTest.getDog("1");
 	}
 
 	@Test
-	public void dogWatcherFailedSoDoItOurselves() {
-		underTest.admitNewDogWithSpecialValues("Extra", DESCRIPTION, 50, 50, 50, 50, 50);
-		underTest.fillFoodBowls(1);
-		underTest.fillWaterBowls(1);
-		underTest.dogsDoThereOwnThing();
+	public void testforWateringWithTwo() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 23, 0, 0, 0));
+		underTest.admitNewDog(new VirtualPet("1", null, 43, 0, 0, 0));
+		underTest.waterTheDogs();
+		VirtualPet check = underTest.getDog(null);
+		VirtualPet check2 = underTest.getDog("1");
+		assertEquals(check.getThirstLvl(), 68);
+		assertEquals(check2.getThirstLvl(), 88);
+	}
 
+	@Test
+	public void testToSeeIfPlayingWorks() {
+		VirtualPetShelter underTest = new VirtualPetShelter();
+		underTest.admitNewDog(new VirtualPet(null, null, 10, 10, 23, 0));
+		underTest.admitNewDog(new VirtualPet("1", null, 0, 0, 10, 35));
+		underTest.admitNewDog(new VirtualPet("1", null, 0, 0, 45, 0));
+		underTest.playWithSpecificDog("1");
+		VirtualPet check = underTest.getDog("1");
+
+		assertEquals(check.getBoredomLvl(), 45);
+		assertEquals(check.getThirstLvl(), 0);
+		assertEquals(check.getSleepinessLvl(), 0);
 	}
 
 }
