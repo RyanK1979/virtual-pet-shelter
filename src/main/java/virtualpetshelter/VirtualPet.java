@@ -37,7 +37,8 @@ public class VirtualPet {
 	}
 
 	public void tick() {
-		// selfCare = random.nextInt(15) + 1;
+		// selfCare = random.nextInt(15) + 1; Did not have this working the way I
+		// wanted, so commented out for now, will fix later
 		//
 		// if (selfCare == 5) {
 		// System.out.println("The dogs look at you with disdain as they take care of
