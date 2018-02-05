@@ -10,7 +10,7 @@ public class VirtualPet {
 	private int thirst;
 	private int boredom;
 	private int sleepiness;
-	private int selfCare;
+	// private int selfCare;
 	Random random = new Random();
 
 	public VirtualPet(String name, String description, int hunger, int thirst, int boredom, int sleepiness) {
@@ -37,12 +37,13 @@ public class VirtualPet {
 	}
 
 	public void tick() {
-		selfCare = random.nextInt(15) + 1;
-
-		if (selfCare == 5) {
-			System.out.println("The dogs look at you with disdain as they take care of themselves");
-			System.exit(0);
-		}
+		// selfCare = random.nextInt(15) + 1;
+		//
+		// if (selfCare == 5) {
+		// System.out.println("The dogs look at you with disdain as they take care of
+		// themselves");
+		// System.exit(0);
+		// }
 		if (hunger >= 10) {
 			hunger -= 10;
 		}
@@ -76,7 +77,7 @@ public class VirtualPet {
 
 	public void eat() {
 		if (hunger >= 50) {
-			hunger += 50;
+			hunger -= 30;
 		}
 
 	}
@@ -87,7 +88,7 @@ public class VirtualPet {
 
 	public void play() {
 		if (boredom <= 55) {
-			boredom += 50;
+			boredom -= 50;
 		}
 		if (thirst >= 10) {
 			thirst -= 10;
@@ -99,10 +100,10 @@ public class VirtualPet {
 
 	public void sleep() {
 		if (sleepiness <= 55) {
-			sleepiness += 45;
+			sleepiness -= 20;
 		}
 		if (hunger >= 30) {
-			hunger -= 30;
+			hunger -= 20;
 		}
 	}
 

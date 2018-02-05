@@ -20,7 +20,7 @@ public class VirtualPetShelterApp {
 				random.nextInt(100) + 1, random.nextInt(100) + 1, random.nextInt(100) + 1, random.nextInt(100) + 1);
 		VirtualPet pet3 = new VirtualPet("Brutus", "English Bull Dog, he got lost, but he thinks he is a giant breed",
 				random.nextInt(100) + 1, random.nextInt(100) + 1, random.nextInt(100) + 1, random.nextInt(100) + 1);
-		VirtualPet pet4 = new VirtualPet("Maggie", "Newfie, loves to swim, then sleep", random.nextInt(100) + 1,
+		VirtualPet pet4 = new VirtualPet("Rufio", "Newfie, loves to swim, then sleep", random.nextInt(100) + 1,
 				random.nextInt(100) + 1, random.nextInt(100) + 1, random.nextInt(100) + 1);
 
 		homelessDogs.admitNewDog(pet1);
@@ -51,6 +51,7 @@ public class VirtualPetShelterApp {
 					playWithDog = input.nextLine();
 				}
 				homelessDogs.playWithSpecificDog(playWithDog);
+				homelessDogs.showDogTitle();
 				homelessDogs.tick();
 				System.out.println("You are playing with " + playWithDog);
 			} else if (menuInput.equals("3")) {
@@ -93,6 +94,7 @@ public class VirtualPetShelterApp {
 					homelessDogs.showDogTitle();
 				} while (removePet.equals("y"));
 				System.out.println("Thank you for adopting a pet.");
+				homelessDogs.showDogTitle();
 				homelessDogs.tick();
 			} else if (menuInput.equals("7")) {
 				homelessDogs.showDogTitle();
